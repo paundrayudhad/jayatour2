@@ -4,12 +4,15 @@ import { Clock, Star, Users, MessageCircle, MapPin, Calendar, ArrowRight } from 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
+import HeroBanner from "@/components/HeroBanner";
 import heroImage from "@/assets/hero-beach.jpg";
 import templeImage from "@/assets/temple-java.jpg";
 import japanImage from "@/assets/japan-fuji.jpg";
 import singaporeImage from "@/assets/singapore-skyline.jpg";
 
 const Beranda = () => {
+  const { t } = useLanguage();
   const [flashSaleTime, setFlashSaleTime] = useState({
     hours: 23,
     minutes: 45,
@@ -104,72 +107,40 @@ const Beranda = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section 
-        className="relative h-[70vh] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-            Jelajahi Dunia Bersama 
-            <span className="block text-primary-glow">SabajayaTour</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 animate-slide-up">
-            Partner terpercaya untuk petualangan tak terlupakan ke destinasi impian Anda
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg"
-              onClick={() => handleWhatsAppClick("tour pilihan")}
-            >
-              Pesan Sekarang
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-primary px-8 py-3 text-lg"
-              asChild
-            >
-              <Link to="/paket-tour">Lihat Semua Paket</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* Hero Banner with Auto-sliding */}
+      <HeroBanner />
 
       {/* Flash Sale Section */}
       <section className="py-16 bg-gradient-sunset">
         <div className="container px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              ⚡ Flash Sale Hari Ini!
+              ⚡ {t('flashSaleTitle')}
             </h2>
-            <p className="text-white/90 text-lg mb-6">Diskon hingga 40% untuk paket pilihan terbatas!</p>
+            <p className="text-white/90 text-lg mb-6">{t('flashSaleSubtitle')}</p>
             
             {/* Countdown Timer */}
             <div className="flex justify-center space-x-4 mb-8">
-              <div className="bg-white/20 backdrop-blur rounded-lg p-4 text-center min-w-[80px]">
+              <div className="glass-effect rounded-lg p-4 text-center min-w-[80px]">
                 <div className="text-2xl font-bold text-white">{flashSaleTime.hours.toString().padStart(2, '0')}</div>
-                <div className="text-white/80 text-sm">Jam</div>
+                <div className="text-white/80 text-sm">{t('hours')}</div>
               </div>
-              <div className="bg-white/20 backdrop-blur rounded-lg p-4 text-center min-w-[80px]">
+              <div className="glass-effect rounded-lg p-4 text-center min-w-[80px]">
                 <div className="text-2xl font-bold text-white">{flashSaleTime.minutes.toString().padStart(2, '0')}</div>
-                <div className="text-white/80 text-sm">Menit</div>
+                <div className="text-white/80 text-sm">{t('minutes')}</div>
               </div>
-              <div className="bg-white/20 backdrop-blur rounded-lg p-4 text-center min-w-[80px]">
+              <div className="glass-effect rounded-lg p-4 text-center min-w-[80px]">
                 <div className="text-2xl font-bold text-white">{flashSaleTime.seconds.toString().padStart(2, '0')}</div>
-                <div className="text-white/80 text-sm">Detik</div>
+                <div className="text-white/80 text-sm">{t('seconds')}</div>
               </div>
             </div>
 
             <Button 
               size="lg" 
-              className="bg-white text-accent hover:bg-white/90 px-8 py-3 text-lg font-semibold"
+              className="btn-premium px-8 py-3 text-lg font-semibold"
               asChild
             >
-              <Link to="/paket-tour/flash-sale">Lihat Flash Sale</Link>
+              <Link to="/paket-tour/flash-sale">{t('flashSale')}</Link>
             </Button>
           </div>
         </div>

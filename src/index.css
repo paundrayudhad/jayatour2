@@ -2,40 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Premium Travel Design System - Mobile First */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    /* Travel-inspired color palette */
+    /* Premium Travel Color Palette */
     --background: 0 0% 100%;
-    --foreground: 224 71% 4%;
+    --foreground: 225 73% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 225 73% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 225 73% 7%;
 
-    /* Ocean Blue - Primary brand color */
-    --primary: 199 89% 48%;
+    /* Luxury Navy Blue - Primary brand color */
+    --primary: 220 91% 20%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 199 89% 65%;
+    --primary-glow: 220 60% 35%;
+    --primary-light: 220 91% 95%;
 
-    /* Light ocean tones */
-    --secondary: 199 20% 96%;
-    --secondary-foreground: 224 71% 4%;
+    /* Premium Secondary Colors */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 225 73% 7%;
 
-    /* Neutral grays */
-    --muted: 220 14% 96%;
+    /* Sophisticated Neutrals */
+    --muted: 220 13% 95%;
     --muted-foreground: 220 9% 46%;
 
-    /* Warm orange accent */
-    --accent: 43 96% 56%;
-    --accent-foreground: 0 0% 98%;
+    /* Luxury Gold Accent */
+    --accent: 45 93% 55%;
+    --accent-foreground: 225 73% 7%;
+    --accent-light: 45 93% 95%;
 
-    /* Success green (WhatsApp) */
+    /* Premium Success (WhatsApp) */
     --success: 142 76% 36%;
     --success-foreground: 0 0% 98%;
 
@@ -44,21 +46,44 @@ All colors MUST be HSL.
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 199 89% 48%;
+    --ring: 220 91% 20%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Travel-themed gradients */
-    --gradient-ocean: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-sunset: linear-gradient(135deg, hsl(var(--accent)), hsl(43 96% 70%));
+    /* Premium Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    --gradient-luxury: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(45 93% 70%) 100%);
+    --gradient-ocean: linear-gradient(135deg, hsl(220 91% 20%) 0%, hsl(220 60% 35%) 50%, hsl(199 89% 48%) 100%);
+    --gradient-sunset: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(25 95% 53%) 100%);
+    --gradient-premium: linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--accent-light)) 100%);
     
-    /* Shadows */
-    --shadow-travel: 0 10px 30px -10px hsl(var(--primary) / 0.2);
-    --shadow-card: 0 4px 12px -4px hsl(220 9% 46% / 0.1);
+    /* Premium Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(var(--primary) / 0.15);
+    --shadow-card: 0 8px 30px -12px hsl(220 9% 46% / 0.12);
+    --shadow-float: 0 15px 35px -5px hsl(var(--primary) / 0.1);
+    --shadow-glow: 0 0 50px hsl(var(--accent) / 0.3);
     
-    /* Animations */
+    /* Smooth Animations */
+    --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Premium Typography Scale (Mobile First) */
+    --text-xs: 0.75rem;    /* 12px */
+    --text-sm: 0.875rem;   /* 14px */
+    --text-base: 1rem;     /* 16px */
+    --text-lg: 1.125rem;   /* 18px */
+    --text-xl: 1.25rem;    /* 20px */
+    --text-2xl: 1.5rem;    /* 24px */
+    --text-3xl: 1.875rem;  /* 30px */
+    --text-4xl: 2.25rem;   /* 36px */
+    --text-5xl: 3rem;      /* 48px */
+    --text-6xl: 3.75rem;   /* 60px */
+
+    /* Mobile breakpoints */
+    --mobile-padding: 1rem;
+    --tablet-padding: 2rem;
+    --desktop-padding: 3rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -121,7 +146,79 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-feature-settings: 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  /* Mobile-first responsive typography */
+  .text-display {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .text-hero {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .text-body-lg {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    line-height: 1.6;
+  }
+
+  /* Premium component styles */
+  .btn-premium {
+    @apply bg-gradient-luxury text-foreground font-semibold;
+    @apply shadow-luxury hover:shadow-float;
+    @apply transition-luxury hover:scale-105;
+    @apply px-8 py-4 rounded-xl;
+  }
+
+  .card-premium {
+    @apply bg-card border border-border/50;
+    @apply shadow-card hover:shadow-luxury;
+    @apply transition-luxury rounded-2xl overflow-hidden;
+  }
+
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+    @apply shadow-lg rounded-xl;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/50;
   }
 }
