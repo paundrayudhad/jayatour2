@@ -190,14 +190,15 @@
   .btn-premium {
     @apply bg-gradient-luxury text-foreground font-semibold;
     @apply shadow-luxury hover:shadow-float;
-    @apply transition-luxury hover:scale-105;
-    @apply px-8 py-4 rounded-xl;
+    @apply px-8 py-4 rounded-xl hover:scale-105;
+    transition: var(--transition-luxury);
   }
 
   .card-premium {
     @apply bg-card border border-border/50;
     @apply shadow-card hover:shadow-luxury;
-    @apply transition-luxury rounded-2xl overflow-hidden;
+    @apply rounded-2xl overflow-hidden;
+    transition: var(--transition-luxury);
   }
 
   .glass-effect {
