@@ -80,7 +80,7 @@ const translations: Translations = {
   },
   happyCustomers: { id: 'Happy Customers', en: 'Happy Customers' },
   destinations: { id: 'Destinasi', en: 'Destinations' },
-  experience: { id: 'Pengalaman', en: 'Experience' },
+  yearsExperience: { id: 'Pengalaman', en: 'Experience' },
   rating: { id: 'Rating', en: 'Rating' },
 };
 
