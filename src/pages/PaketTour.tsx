@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Search, Filter, MapPin, Calendar, Users, Star, MessageCircle } from "lucide-react";
+import { Search, MapPin, Calendar, Users, Star, MessageCircle, GraduationCap, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-beach.jpg";
 import templeImage from "@/assets/temple-java.jpg";
 import japanImage from "@/assets/japan-fuji.jpg";
@@ -13,113 +14,95 @@ import singaporeImage from "@/assets/singapore-skyline.jpg";
 const PaketTour = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [priceRange, setPriceRange] = useState("all");
-  const [destination, setDestination] = useState("all");
+  const [tourType, setTourType] = useState("all");
   const [duration, setDuration] = useState("all");
 
   const allPackages = [
     {
       id: 1,
-      title: "Bali Paradise 4D3N",
-      image: heroImage,
-      price: "Rp 2.850.000",
-      originalPrice: "Rp 3.500.000",
-      rating: 4.8,
-      reviews: 124,
-      location: "Bali, Indonesia",
-      duration: "4 Hari 3 Malam",
-      participants: "Min 2 orang",
-      category: "domestik",
-      highlights: ["Pantai Kuta", "Tanah Lot", "Ubud", "Airport Transfer"],
-      description: "Nikmati keindahan Pulau Dewata dengan paket lengkap mencakup hotel bintang 4, transport AC, dan tour guide berpengalaman."
+      title: "Open College Tour - Top Universities Indonesia",
+      image: templeImage,
+      price: "Rp 2.500.000",
+      rating: 4.9,
+      reviews: 234,
+      location: "Jakarta - Bandung - Yogyakarta",
+      duration: "5 Hari 4 Malam",
+      participants: "10-15 siswa",
+      category: "open",
+      seats: 12,
+      totalSeats: 15,
+      nextDate: "15 Nov 2024",
+      universities: ["UI", "ITB", "UGM", "Unpad"],
+      highlights: ["Campus Tour", "Talk with Students", "Academic Fair", "Cultural Experience"],
+      description: "Kunjungi universitas terbaik Indonesia dengan program terintegrasi meliputi campus tour, dialog dengan mahasiswa, dan pengalaman akademik langsung."
     },
     {
       id: 2,
-      title: "Yogyakarta Heritage 3D2N",
-      image: templeImage,
-      price: "Rp 1.650.000",
-      originalPrice: "Rp 2.100.000",
-      rating: 4.9,
-      reviews: 89,
-      location: "Yogyakarta, Indonesia",
-      duration: "3 Hari 2 Malam",
-      participants: "Min 2 orang",
-      category: "domestik",
-      highlights: ["Borobudur", "Prambanan", "Malioboro", "Sultan Palace"],
-      description: "Jelajahi warisan budaya Yogyakarta dengan mengunjungi candi-candi bersejarah dan wisata kuliner khas Jogja."
+      title: "Private Campus Tour - Universitas Pilihan",
+      image: heroImage,
+      price: "Rp 1.800.000",
+      rating: 4.8,
+      reviews: 156,
+      location: "Fleksibel sesuai pilihan",
+      duration: "2-3 Hari",
+      participants: "5-8 siswa",
+      category: "private",
+      seats: 6,
+      totalSeats: 8,
+      nextDate: "20 Nov 2024",
+      universities: ["Custom Selection"],
+      highlights: ["Personalized Tour", "Faculty Meeting", "Lab Visit", "Career Guidance"],
+      description: "Tour eksklusif dengan panduan personal ke universitas pilihan Anda. Dapatkan informasi mendalam tentang jurusan dan fasilitas kampus."
     },
     {
       id: 3,
-      title: "Japan Cherry Blossom 7D6N",
-      image: japanImage,
-      price: "Rp 15.500.000",
-      originalPrice: "Rp 18.000.000",
+      title: "Study Abroad Visit - Singapore Universities",
+      image: singaporeImage,
+      price: "Rp 8.500.000",
       rating: 4.7,
-      reviews: 67,
-      location: "Tokyo-Osaka, Japan",
-      duration: "7 Hari 6 Malam",
-      participants: "Min 2 orang",
-      category: "internasional",
-      highlights: ["Mount Fuji", "Tokyo Disneyland", "Kyoto Temple", "Osaka Castle"],
-      description: "Rasakan pengalaman musim semi di Jepang dengan pemandangan sakura yang memukau di berbagai destinasi ikonik."
+      reviews: 89,
+      location: "Singapore",
+      duration: "4 Hari 3 Malam",
+      participants: "8-12 siswa", 
+      category: "abroad",
+      seats: 8,
+      totalSeats: 12,
+      nextDate: "25 Nov 2024",
+      universities: ["NUS", "NTU", "SMU"],
+      highlights: ["International Campus", "Study Abroad Info", "Scholarship Guidance", "Cultural Immersion"],
+      description: "Eksplorasi universitas terbaik Singapura dan dapatkan informasi lengkap tentang program studi, beasiswa, dan kehidupan mahasiswa internasional."
     },
     {
       id: 4,
-      title: "Singapore Malaysia 5D4N",
-      image: singaporeImage,
-      price: "Rp 4.200.000",
-      originalPrice: "Rp 5.000.000",
-      rating: 4.6,
-      reviews: 156,
-      location: "Singapore-Malaysia",
-      duration: "5 Hari 4 Malam",
-      participants: "Min 2 orang",
-      category: "internasional",
-      highlights: ["Marina Bay Sands", "Universal Studios", "Genting Highland", "KL Twin Tower"],
-      description: "Kombinasi wisata kota modern Singapore dan Malaysia dengan atraksi menarik dan kuliner yang lezat."
-    },
-    {
-      id: 5,
-      title: "Lombok Gili Island 4D3N",
-      image: heroImage,
-      price: "Rp 2.100.000",
-      originalPrice: "Rp 2.600.000",
-      rating: 4.5,
-      reviews: 93,
-      location: "Lombok, Indonesia",
+      title: "Open College Tour - Engineering Focus",
+      image: japanImage,
+      price: "Rp 3.200.000",
+      rating: 4.8,
+      reviews: 167,
+      location: "Bandung - Surabaya",
       duration: "4 Hari 3 Malam",
-      participants: "Min 2 orang",
-      category: "domestik",
-      highlights: ["Gili Trawangan", "Snorkeling", "Pantai Pink", "Bukit Merese"],
-      description: "Eksplorasi keindahan Lombok dan Gili Island dengan aktivitas snorkeling dan pemandangan sunset yang menakjubkan."
-    },
-    {
-      id: 6,
-      title: "Bangkok Pattaya 5D4N",
-      image: singaporeImage,
-      price: "Rp 3.800.000",
-      originalPrice: "Rp 4.500.000",
-      rating: 4.4,
-      reviews: 78,
-      location: "Bangkok-Pattaya, Thailand",
-      duration: "5 Hari 4 Malam",
-      participants: "Min 2 orang",
-      category: "internasional",
-      highlights: ["Grand Palace", "Floating Market", "Coral Island", "Nong Nooch Garden"],
-      description: "Jelajahi keindahan Thailand dari Bangkok yang megah hingga pantai eksotis Pattaya dengan berbagai atraksi menarik."
+      participants: "12-16 siswa",
+      category: "open",
+      seats: 14,
+      totalSeats: 16,
+      nextDate: "30 Nov 2024",
+      universities: ["ITB", "ITS", "Unpar", "Telkom University"],
+      highlights: ["Engineering Labs", "Innovation Center", "Tech Expo", "Industry Visit"],
+      description: "Tour spesial untuk calon mahasiswa teknik dengan fokus pada laboratorium, pusat inovasi, dan kunjungan industri teknologi."
     }
   ];
 
   const handleWhatsAppClick = (paket: string) => {
-    const message = encodeURIComponent(`Halo! Saya tertarik dengan paket ${paket}. Bisa minta informasi lebih lanjut?`);
+    const message = encodeURIComponent(`Halo! Saya tertarik dengan college tour ${paket}. Bisa minta informasi lebih lanjut?`);
     window.open(`https://wa.me/6281234567890?text=${message}`, '_blank');
   };
 
   const filteredPackages = allPackages.filter(pkg => {
     const matchesSearch = pkg.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          pkg.location.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDestination = destination === "all" || pkg.category === destination;
+    const matchesTourType = tourType === "all" || pkg.category === tourType;
     
-    return matchesSearch && matchesDestination;
+    return matchesSearch && matchesTourType;
   });
 
   return (
@@ -127,11 +110,14 @@ const PaketTour = () => {
       <div className="container px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Semua Paket Tour
-          </h1>
+          <div className="flex items-center justify-center mb-4">
+            <GraduationCap className="h-12 w-12 text-primary mr-4" />
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+              College Tour Packages
+            </h1>
+          </div>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Temukan destinasi impian Anda dari koleksi lengkap paket tour domestik dan internasional
+            Jelajahi universitas terbaik dengan program tour edukasi yang dirancang khusus untuk calon mahasiswa
           </p>
         </div>
 
@@ -149,14 +135,15 @@ const PaketTour = () => {
                 />
               </div>
               
-              <Select value={destination} onValueChange={setDestination}>
+              <Select value={tourType} onValueChange={setTourType}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Pilih Destinasi" />
+                  <SelectValue placeholder="Tipe Tour" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Semua Destinasi</SelectItem>
-                  <SelectItem value="domestik">Domestik</SelectItem>
-                  <SelectItem value="internasional">Internasional</SelectItem>
+                  <SelectItem value="all">Semua Tipe</SelectItem>
+                  <SelectItem value="open">Open Tour</SelectItem>
+                  <SelectItem value="private">Private Tour</SelectItem>
+                  <SelectItem value="abroad">Study Abroad</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -190,65 +177,69 @@ const PaketTour = () => {
         {/* Results */}
         <div className="mb-6">
           <p className="text-muted-foreground">
-            Menampilkan {filteredPackages.length} paket tour
+            Menampilkan {filteredPackages.length} program college tour
           </p>
         </div>
 
-        {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Packages Grid - 4 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredPackages.map((pkg) => (
             <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group">
               <div className="relative overflow-hidden">
                 <img 
                   src={pkg.image} 
                   alt={pkg.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">
-                  {pkg.category === 'domestik' ? 'Domestik' : 'Internasional'}
+                <Badge className={`absolute top-3 left-3 text-xs ${
+                  pkg.category === 'open' ? 'bg-blue-500' :
+                  pkg.category === 'private' ? 'bg-green-500' : 'bg-purple-500'
+                }`}>
+                  {pkg.category === 'open' ? 'Open Tour' : 
+                   pkg.category === 'private' ? 'Private Tour' : 'Study Abroad'}
                 </Badge>
-                {pkg.originalPrice && (
-                  <Badge className="absolute top-4 right-4 bg-destructive text-destructive-foreground">
-                    Promo
-                  </Badge>
-                )}
+                <Badge className="absolute top-3 right-3 bg-orange-500 text-xs">
+                  {pkg.seats}/{pkg.totalSeats} seats
+                </Badge>
               </div>
               
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium">{pkg.rating}</span>
-                    <span className="text-sm text-muted-foreground">({pkg.reviews} ulasan)</span>
+                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    <span className="text-xs font-medium">{pkg.rating}</span>
+                    <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
+                  </div>
+                  <div className="flex items-center space-x-1 text-xs text-muted-foreground">
+                    <Clock className="h-3 w-3" />
+                    <span>{pkg.nextDate}</span>
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-semibold text-foreground mb-2">{pkg.title}</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">
+                  {pkg.title}
+                </h3>
                 
-                <div className="space-y-2 text-sm text-muted-foreground mb-4">
+                <div className="space-y-1 text-xs text-muted-foreground mb-3">
                   <div className="flex items-center space-x-1">
-                    <MapPin className="h-4 w-4" />
-                    <span>{pkg.location}</span>
+                    <MapPin className="h-3 w-3" />
+                    <span className="line-clamp-1">{pkg.location}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Calendar className="h-4 w-4" />
+                    <Calendar className="h-3 w-3" />
                     <span>{pkg.duration}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Users className="h-4 w-4" />
+                    <Users className="h-3 w-3" />
                     <span>{pkg.participants}</span>
                   </div>
                 </div>
 
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {pkg.description}
-                </p>
-
-                <div className="mb-4">
+                <div className="mb-3">
                   <div className="flex flex-wrap gap-1">
-                    {pkg.highlights.slice(0, 3).map((highlight, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">
-                        {highlight}
+                    {pkg.universities.map((uni, idx) => (
+                      <Badge key={idx} variant="outline" className="text-xs px-1 py-0">
+                        {uni}
                       </Badge>
                     ))}
                   </div>
@@ -256,18 +247,26 @@ const PaketTour = () => {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    {pkg.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">{pkg.originalPrice}</span>
-                    )}
-                    <div className="text-xl font-bold text-primary">{pkg.price}</div>
+                    <div className="text-lg font-bold text-primary">{pkg.price}</div>
                   </div>
-                  <Button 
-                    className="bg-success hover:bg-success/90 text-success-foreground"
-                    onClick={() => handleWhatsAppClick(pkg.title)}
-                  >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Pesan
-                  </Button>
+                  <div className="flex space-x-1">
+                    <Button 
+                      size="sm"
+                      variant="outline"
+                      className="text-xs px-2 py-1"
+                      asChild
+                    >
+                      <Link to={`/paket-tour/${pkg.id}`}>Detail</Link>
+                    </Button>
+                    <Button 
+                      size="sm"
+                      className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
+                      onClick={() => handleWhatsAppClick(pkg.title)}
+                    >
+                      <MessageCircle className="h-3 w-3 mr-1" />
+                      Book
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -277,14 +276,14 @@ const PaketTour = () => {
         {filteredPackages.length === 0 && (
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">
-              Tidak ada paket tour yang sesuai dengan filter Anda.
+              Tidak ada program college tour yang sesuai dengan filter Anda.
             </p>
             <Button 
               variant="outline" 
               className="mt-4"
               onClick={() => {
                 setSearchTerm("");
-                setDestination("all");
+                setTourType("all");
                 setPriceRange("all");
                 setDuration("all");
               }}

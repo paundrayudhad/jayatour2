@@ -232,76 +232,63 @@ const Testimoni = () => {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Testimonials Grid - 4 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredTestimonials.map((testimonial) => (
             <Card key={testimonial.id} className="shadow-card hover:shadow-travel transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4 mb-4">
-                  <Avatar className="w-12 h-12">
+              <CardContent className="p-4">
+                <div className="flex items-start space-x-3 mb-3">
+                  <Avatar className="w-8 h-8">
                     <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                    <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
+                    <AvatarFallback className="text-xs">{testimonial.name[0]}</AvatarFallback>
                   </Avatar>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-semibold text-foreground">{testimonial.name}</h3>
+                      <h3 className="font-semibold text-sm text-foreground truncate">{testimonial.name}</h3>
                       {testimonial.verified && (
-                        <Badge variant="outline" className="text-xs bg-success/10 text-success border-success/20">
-                          ✓ Verified
+                        <Badge variant="outline" className="text-xs bg-success/10 text-success border-success/20 ml-1">
+                          ✓
                         </Badge>
                       )}
                     </div>
-                    <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
-                      <MapPin className="h-3 w-3" />
-                      <span>{testimonial.location}</span>
-                      <span>•</span>
-                      <Calendar className="h-3 w-3" />
-                      <span>{testimonial.date}</span>
+                    <div className="flex items-center space-x-1 text-xs text-muted-foreground mb-1">
+                      <MapPin className="h-2 w-2" />
+                      <span className="truncate">{testimonial.location}</span>
                     </div>
-                    <div className="flex items-center space-x-1 mb-2">
+                    <div className="flex items-center space-x-1">
                       {[...Array(5)].map((_, i) => (
                         <Star 
                           key={i} 
-                          className={`h-4 w-4 ${
+                          className={`h-3 w-3 ${
                             i < testimonial.rating 
                               ? 'fill-yellow-400 text-yellow-400' 
                               : 'text-gray-200'
                           }`} 
                         />
                       ))}
-                      <span className="text-sm text-muted-foreground ml-2">
-                        ({testimonial.rating}/5)
-                      </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <Badge className={`mb-3 ${
+                <div className="mb-3">
+                  <Badge className={`mb-2 text-xs ${
                     testimonial.category === 'domestik' 
                       ? 'bg-success/10 text-success' 
                       : 'bg-accent/10 text-accent'
                   }`}>
                     {testimonial.destination}
                   </Badge>
-                  <div className="relative">
-                    <Quote className="absolute -top-2 -left-2 h-6 w-6 text-primary/20" />
-                    <p className="text-muted-foreground leading-relaxed pl-4">
-                      {testimonial.text}
-                    </p>
-                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-4">
+                    {testimonial.text}
+                  </p>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t">
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <button className="flex items-center space-x-1 hover:text-primary transition-colors">
-                      <span>👍</span>
-                      <span>Helpful ({testimonial.helpful})</span>
-                    </button>
-                  </div>
-                  <Button variant="outline" size="sm">
-                    Balas
-                  </Button>
+                <div className="flex items-center justify-between pt-2 border-t text-xs">
+                  <button className="flex items-center space-x-1 hover:text-primary transition-colors">
+                    <span>👍</span>
+                    <span>{testimonial.helpful}</span>
+                  </button>
+                  <span className="text-muted-foreground">{testimonial.date}</span>
                 </div>
               </CardContent>
             </Card>

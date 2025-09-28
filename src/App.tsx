@@ -7,6 +7,7 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import Layout from "./components/Layout";
 import Beranda from "./pages/Beranda";
 import PaketTour from "./pages/PaketTour";
+import TourDetail from "./pages/TourDetail";
 import PaketBundling from "./pages/PaketBundling";
 import PaketInternasional from "./pages/PaketInternasional";
 import FlashSale from "./pages/FlashSale";
@@ -14,6 +15,9 @@ import Galeri from "./pages/Galeri";
 import Testimoni from "./pages/Testimoni";
 import Blog from "./pages/Blog";
 import Profil from "./pages/Profil";
+import Contact from "./pages/Contact";
+import FAQ from "./pages/FAQ";
+import HowToBook from "./pages/HowToBook";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +33,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Beranda />} />
               <Route path="/paket-tour" element={<PaketTour />} />
+              <Route path="/paket-tour/:id" element={<TourDetail />} />
               <Route path="/paket-tour/bundling" element={<PaketBundling />} />
               <Route path="/paket-tour/internasional" element={<PaketInternasional />} />
               <Route path="/paket-tour/flash-sale" element={<FlashSale />} />
@@ -36,6 +41,9 @@ const App = () => (
               <Route path="/pengalaman/testimoni" element={<Testimoni />} />
               <Route path="/pengalaman/blog" element={<Blog />} />
               <Route path="/tentang/profil" element={<Profil />} />
+              <Route path="/tentang/kontak" element={<Contact />} />
+              <Route path="/tentang/faq" element={<FAQ />} />
+              <Route path="/tentang/cara-booking" element={<HowToBook />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>

@@ -56,7 +56,7 @@ const Header = () => {
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-hero shadow-float">
             <span className="text-xl font-bold text-primary-foreground">S</span>
           </div>
-          <span className="text-2xl font-display font-bold text-primary">SabajayaTour</span>
+          <span className="text-2xl font-display font-bold text-primary">JayaTour</span>
         </Link>
 
         {/* Desktop Navigation */}
