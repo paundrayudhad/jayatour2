@@ -18,13 +18,12 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-ocean">
-                <span className="text-lg font-bold text-primary-foreground">S</span>
+                <span className="text-lg font-bold text-primary-foreground">J</span>
               </div>
-              <span className="text-xl font-bold text-primary">SabajayaTour</span>
+              <span className="text-xl font-bold text-primary">JayaTour</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              Partner terpercaya untuk perjalanan impian Anda ke seluruh dunia. 
-              Berpengalaman sejak 2015 melayani ribuan wisatawan dengan pelayanan terbaik.
+              Platform college tour terpercaya yang telah membantu 10,000+ siswa menemukan universitas impian mereka sejak 2016.
             </p>
             <div className="flex space-x-4">
               <a href="https://instagram.com/sabajayatour" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
@@ -44,9 +43,9 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground">Menu Utama</h3>
             <div className="space-y-2 text-sm">
               <Link to="/" className="block text-muted-foreground hover:text-primary">Beranda</Link>
-              <Link to="/paket-tour" className="block text-muted-foreground hover:text-primary">Semua Paket</Link>
-              <Link to="/paket-tour/domestik" className="block text-muted-foreground hover:text-primary">Tour Domestik</Link>
-              <Link to="/paket-tour/internasional" className="block text-muted-foreground hover:text-primary">Tour Internasional</Link>
+              <Link to="/paket-tour" className="block text-muted-foreground hover:text-primary">College Tour</Link>
+              <Link to="/paket-tour/internasional" className="block text-muted-foreground hover:text-primary">Internasional</Link>
+              <Link to="/paket-tour/bundling" className="block text-muted-foreground hover:text-primary">Bundling Paket</Link>
               <Link to="/paket-tour/flash-sale" className="block text-muted-foreground hover:text-primary">Flash Sale</Link>
             </div>
           </div>
@@ -100,7 +99,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 SabajayaTour. All rights reserved. | Privacy Policy | Terms of Service</p>
+          <p>&copy; 2024 JayaTour. All rights reserved. | Privacy Policy | Terms of Service</p>
         </div>
       </div>
     </footer>

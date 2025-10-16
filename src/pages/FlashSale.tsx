@@ -220,21 +220,21 @@ const FlashSale = () => {
           </div>
         </div>
 
-        {/* Flash Sale Packages */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Flash Sale Packages - 4 Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {flashSalePackages.map((pkg) => (
             <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group relative">
               {/* Flash Sale Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <Badge className="bg-destructive text-destructive-foreground animate-pulse-travel font-bold">
-                  -{pkg.discount} OFF
+              <div className="absolute top-3 left-3 z-10">
+                <Badge className="bg-destructive text-destructive-foreground font-bold text-xs">
+                  -{pkg.discount}
                 </Badge>
               </div>
               
               {/* Stock Badge */}
-              <div className="absolute top-4 right-4 z-10">
-                <Badge variant="outline" className="bg-background/90 text-foreground">
-                  {pkg.total - pkg.sold} tersisa
+              <div className="absolute top-3 right-3 z-10">
+                <Badge variant="outline" className="bg-background/90 text-foreground text-xs">
+                  {pkg.total - pkg.sold} left
                 </Badge>
               </div>
 
@@ -242,71 +242,63 @@ const FlashSale = () => {
                 <img 
                   src={pkg.image} 
                   alt={pkg.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
               
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium">{pkg.rating}</span>
-                    <span className="text-sm text-muted-foreground">({pkg.reviews} ulasan)</span>
+                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    <span className="text-xs font-medium">{pkg.rating}</span>
+                    <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-semibold text-foreground mb-2">{pkg.title}</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">{pkg.title}</h3>
                 
-                <div className="space-y-2 text-sm text-muted-foreground mb-4">
+                <div className="space-y-1 text-xs text-muted-foreground mb-3">
                   <div className="flex items-center space-x-1">
-                    <MapPin className="h-4 w-4" />
-                    <span>{pkg.location}</span>
+                    <MapPin className="h-3 w-3" />
+                    <span className="line-clamp-1">{pkg.location}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Calendar className="h-4 w-4" />
+                    <Calendar className="h-3 w-3" />
                     <span>{pkg.duration}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Users className="h-4 w-4" />
-                    <span>{pkg.participants}</span>
                   </div>
                 </div>
 
                 {/* Stock Progress */}
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-muted-foreground">Terjual</span>
-                    <span className="font-medium">{pkg.sold}/{pkg.total}</span>
-                  </div>
-                  <Progress value={(pkg.sold / pkg.total) * 100} className="h-2" />
-                  <p className="text-xs text-destructive mt-1 font-medium">
-                    {pkg.sold > pkg.total * 0.8 ? "⚠️ Stok hampir habis!" : `💨 ${pkg.total - pkg.sold} paket tersisa`}
+                <div className="mb-3">
+                  <Progress value={(pkg.sold / pkg.total) * 100} className="h-1.5 mb-1" />
+                  <p className="text-xs text-destructive font-medium">
+                    {pkg.sold > pkg.total * 0.8 ? "⚠️ Almost sold out!" : `${pkg.total - pkg.sold} left`}
                   </p>
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-3">
                   <div className="flex flex-wrap gap-1">
-                    {pkg.highlights.slice(0, 3).map((highlight, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">
+                    {pkg.highlights.slice(0, 2).map((highlight, idx) => (
+                      <Badge key={idx} variant="secondary" className="text-xs px-1 py-0">
                         {highlight}
                       </Badge>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between pt-3 border-t">
                   <div>
-                    <span className="text-lg text-muted-foreground line-through">{pkg.originalPrice}</span>
-                    <div className="text-2xl font-bold text-destructive">{pkg.price}</div>
-                    <div className="text-xs text-success font-medium">Hemat {pkg.discount}!</div>
+                    <span className="text-xs text-muted-foreground line-through">{pkg.originalPrice}</span>
+                    <div className="text-base font-bold text-destructive">{pkg.price}</div>
                   </div>
                   <Button 
-                    className="bg-success hover:bg-success/90 text-success-foreground font-bold animate-pulse-travel"
+                    size="sm"
+                    className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
                     onClick={() => handleWhatsAppClick(pkg.title)}
                   >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    PESAN SEKARANG!
+                    <MessageCircle className="h-3 w-3 mr-1" />
+                    Book
                   </Button>
                 </div>
               </CardContent>

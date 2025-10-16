@@ -205,71 +205,55 @@ const PaketInternasional = () => {
           </div>
         </div>
 
-        {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Packages Grid - 4 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {internationalPackages.map((pkg) => (
             <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group">
               <div className="relative overflow-hidden">
                 <img 
                   src={pkg.image} 
                   alt={pkg.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
-                  Internasional
-                </Badge>
                 {pkg.originalPrice && (
-                  <Badge className="absolute top-4 right-4 bg-destructive text-destructive-foreground">
+                  <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground text-xs">
                     Promo
                   </Badge>
                 )}
               </div>
               
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium">{pkg.rating}</span>
-                    <span className="text-sm text-muted-foreground">({pkg.reviews} ulasan)</span>
+                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    <span className="text-xs font-medium">{pkg.rating}</span>
+                    <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-semibold text-foreground mb-2">{pkg.title}</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">{pkg.title}</h3>
                 
-                <div className="space-y-2 text-sm text-muted-foreground mb-4">
+                <div className="space-y-1 text-xs text-muted-foreground mb-3">
                   <div className="flex items-center space-x-1">
-                    <MapPin className="h-4 w-4" />
-                    <span>{pkg.location}</span>
+                    <MapPin className="h-3 w-3" />
+                    <span className="line-clamp-1">{pkg.location}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Calendar className="h-4 w-4" />
+                    <Calendar className="h-3 w-3" />
                     <span>{pkg.duration}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Users className="h-4 w-4" />
+                    <Users className="h-3 w-3" />
                     <span>{pkg.participants}</span>
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <h4 className="font-medium text-foreground mb-2">Highlight:</h4>
+                <div className="mb-3">
                   <div className="flex flex-wrap gap-1">
-                    {pkg.highlights.slice(0, 3).map((highlight, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">
+                    {pkg.highlights.slice(0, 2).map((highlight, idx) => (
+                      <Badge key={idx} variant="secondary" className="text-xs px-1 py-0">
                         {highlight}
                       </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <h4 className="font-medium text-foreground mb-2">Termasuk:</h4>
-                  <div className="space-y-1">
-                    {pkg.includes.slice(0, 3).map((include, idx) => (
-                      <p key={idx} className="text-xs text-muted-foreground flex items-center">
-                        <span className="w-1 h-1 bg-primary rounded-full mr-2"></span>
-                        {include}
-                      </p>
                     ))}
                   </div>
                 </div>
@@ -277,16 +261,17 @@ const PaketInternasional = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     {pkg.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">{pkg.originalPrice}</span>
+                      <span className="text-xs text-muted-foreground line-through">{pkg.originalPrice}</span>
                     )}
-                    <div className="text-xl font-bold text-primary">{pkg.price}</div>
+                    <div className="text-base font-bold text-primary">{pkg.price}</div>
                   </div>
                   <Button 
-                    className="bg-success hover:bg-success/90 text-success-foreground"
+                    size="sm"
+                    className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
                     onClick={() => handleWhatsAppClick(pkg.title)}
                   >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Pesan
+                    <MessageCircle className="h-3 w-3 mr-1" />
+                    Book
                   </Button>
                 </div>
               </CardContent>

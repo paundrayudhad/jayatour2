@@ -1,219 +1,292 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Clock, Star, Users, MessageCircle, MapPin, Calendar, ArrowRight } from "lucide-react";
+import { GraduationCap, Star, Users, MessageCircle, MapPin, Calendar, ArrowRight, BookOpen, Globe, Award, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useLanguage } from "@/contexts/LanguageContext";
-import HeroBanner from "@/components/HeroBanner";
-import heroImage from "@/assets/hero-beach.jpg";
 import templeImage from "@/assets/temple-java.jpg";
 import japanImage from "@/assets/japan-fuji.jpg";
 import singaporeImage from "@/assets/singapore-skyline.jpg";
+import heroImage from "@/assets/hero-beach.jpg";
 
 const Beranda = () => {
-  const { t } = useLanguage();
-  const [flashSaleTime, setFlashSaleTime] = useState({
-    hours: 23,
-    minutes: 45,
-    seconds: 30
-  });
-
-  // Flash sale countdown timer
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFlashSaleTime(prev => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        }
-        return prev;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   const handleWhatsAppClick = (paket: string) => {
-    const message = encodeURIComponent(`Halo! Saya tertarik dengan paket ${paket}. Bisa minta informasi lebih lanjut?`);
+    const message = encodeURIComponent(`Halo! Saya tertarik dengan ${paket}. Bisa minta informasi lebih lanjut?`);
     window.open(`https://wa.me/6281234567890?text=${message}`, '_blank');
   };
 
-  const popularPackages = [
+  const collegeTourTypes = [
     {
       id: 1,
-      title: "Bali Paradise 4D3N",
-      image: heroImage,
-      price: "Rp 2.850.000",
-      originalPrice: "Rp 3.500.000",
-      rating: 4.8,
-      reviews: 124,
-      location: "Bali, Indonesia",
-      duration: "4 Hari 3 Malam",
-      highlights: ["Pantai Kuta", "Tanah Lot", "Ubud", "Airport Transfer"]
+      title: "Open College Tour",
+      icon: <Users className="h-8 w-8" />,
+      description: "Kunjungi universitas top Indonesia dalam grup terorganisir",
+      image: templeImage,
+      price: "Mulai Rp 2.500.000",
+      features: ["10-15 siswa", "4-5 universitas", "Campus tour", "Student talk"],
+      link: "/paket-tour?type=open"
     },
     {
       id: 2,
-      title: "Yogyakarta Heritage 3D2N",
-      image: templeImage,
-      price: "Rp 1.650.000",
-      originalPrice: "Rp 2.100.000",
-      rating: 4.9,
-      reviews: 89,
-      location: "Yogyakarta, Indonesia",
-      duration: "3 Hari 2 Malam",
-      highlights: ["Borobudur", "Prambanan", "Malioboro", "Sultan Palace"]
+      title: "Private Campus Tour",
+      icon: <BookOpen className="h-8 w-8" />,
+      description: "Tour eksklusif ke universitas pilihan dengan panduan personal",
+      image: heroImage,
+      price: "Mulai Rp 1.800.000",
+      features: ["5-8 siswa", "Custom selection", "Faculty meeting", "Lab visit"],
+      link: "/paket-tour?type=private"
     },
     {
       id: 3,
-      title: "Japan Cherry Blossom 7D6N",
-      image: japanImage,
-      price: "Rp 15.500.000",
-      originalPrice: "Rp 18.000.000",
-      rating: 4.7,
-      reviews: 67,
-      location: "Tokyo-Osaka, Japan",
-      duration: "7 Hari 6 Malam",
-      highlights: ["Mount Fuji", "Tokyo Disneyland", "Kyoto Temple", "Osaka Castle"]
+      title: "Study Abroad Visit",
+      icon: <Globe className="h-8 w-8" />,
+      description: "Eksplorasi universitas luar negeri dan info beasiswa",
+      image: singaporeImage,
+      price: "Mulai Rp 8.500.000",
+      features: ["International campus", "Scholarship info", "Student life", "Cultural immersion"],
+      link: "/paket-tour?type=abroad"
     }
   ];
 
-  const testimonials = [
+  const featuredPackages = [
     {
-      name: "Sarah Wijaya",
-      location: "Jakarta",
-      rating: 5,
-      text: "Pelayanan SabajayaTour sangat memuaskan! Tour guide ramah dan profesional. Pasti akan booking lagi!",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b693?w=100&h=100&fit=crop&crop=face"
+      id: 1,
+      title: "Open College Tour - Top Universities Indonesia",
+      image: templeImage,
+      price: "Rp 2.500.000",
+      rating: 4.9,
+      reviews: 234,
+      location: "Jakarta - Bandung - Yogyakarta",
+      duration: "5 Hari 4 Malam",
+      participants: "10-15 siswa",
+      seats: "12/15 seats",
+      universities: ["UI", "ITB", "UGM", "Unpad"]
     },
     {
-      name: "Budi Santoso",
-      location: "Surabaya",
-      rating: 5,
-      text: "Paket Bali nya lengkap banget, hotel bagus, transport nyaman. Recommended!",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+      id: 2,
+      title: "Study Abroad Visit - Singapore Universities",
+      image: singaporeImage,
+      price: "Rp 8.500.000",
+      rating: 4.7,
+      reviews: 89,
+      location: "Singapore",
+      duration: "4 Hari 3 Malam",
+      participants: "8-12 siswa",
+      seats: "8/12 seats",
+      universities: ["NUS", "NTU", "SMU"]
     },
     {
-      name: "Lisa Chen",
-      location: "Medan",
-      rating: 5,
-      text: "Trip ke Jepang bareng SabajayaTour unforgettable! Detail itinerary nya perfect.",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
+      id: 3,
+      title: "Open College Tour - Engineering Focus",
+      image: japanImage,
+      price: "Rp 3.200.000",
+      rating: 4.8,
+      reviews: 167,
+      location: "Bandung - Surabaya",
+      duration: "4 Hari 3 Malam",
+      participants: "12-16 siswa",
+      seats: "14/16 seats",
+      universities: ["ITB", "ITS", "Unpar", "Telkom"]
+    },
+    {
+      id: 4,
+      title: "Private Campus Tour - Universitas Pilihan",
+      image: heroImage,
+      price: "Rp 1.800.000",
+      rating: 4.8,
+      reviews: 156,
+      location: "Fleksibel sesuai pilihan",
+      duration: "2-3 Hari",
+      participants: "5-8 siswa",
+      seats: "6/8 seats",
+      universities: ["Custom Selection"]
+    }
+  ];
+
+  const whyChooseUs = [
+    {
+      icon: <GraduationCap className="h-8 w-8" />,
+      title: "Expert Guidance",
+      description: "Tour guide berpengalaman dengan pengetahuan mendalam tentang setiap universitas"
+    },
+    {
+      icon: <Award className="h-8 w-8" />,
+      title: "Trusted Partner",
+      description: "Bekerjasama dengan 50+ universitas terbaik di Indonesia dan luar negeri"
+    },
+    {
+      icon: <Users className="h-8 w-8" />,
+      title: "10,000+ Students",
+      description: "Telah membantu ribuan siswa menemukan universitas impian mereka"
+    },
+    {
+      icon: <CheckCircle className="h-8 w-8" />,
+      title: "Complete Package",
+      description: "Akomodasi, transport, dan aktivitas sudah termasuk dalam paket"
     }
   ];
 
   return (
     <div className="min-h-screen">
-      {/* Hero Banner with Auto-sliding */}
-      <HeroBanner />
-
-      {/* Flash Sale Section */}
-      <section className="py-16 bg-gradient-sunset">
-        <div className="container px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              ⚡ {t('flashSaleTitle')}
-            </h2>
-            <p className="text-white/90 text-lg mb-6">{t('flashSaleSubtitle')}</p>
-            
-            {/* Countdown Timer */}
-            <div className="flex justify-center space-x-4 mb-8">
-              <div className="glass-effect rounded-lg p-4 text-center min-w-[80px]">
-                <div className="text-2xl font-bold text-white">{flashSaleTime.hours.toString().padStart(2, '0')}</div>
-                <div className="text-white/80 text-sm">{t('hours')}</div>
-              </div>
-              <div className="glass-effect rounded-lg p-4 text-center min-w-[80px]">
-                <div className="text-2xl font-bold text-white">{flashSaleTime.minutes.toString().padStart(2, '0')}</div>
-                <div className="text-white/80 text-sm">{t('minutes')}</div>
-              </div>
-              <div className="glass-effect rounded-lg p-4 text-center min-w-[80px]">
-                <div className="text-2xl font-bold text-white">{flashSaleTime.seconds.toString().padStart(2, '0')}</div>
-                <div className="text-white/80 text-sm">{t('seconds')}</div>
-              </div>
+      {/* Modern Hero Section */}
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-accent min-h-[90vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80')] opacity-10 bg-cover bg-center"></div>
+        <div className="container px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm text-sm px-4 py-2">
+              #1 College Tour Platform in Indonesia
+            </Badge>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Temukan Universitas <br />
+              <span className="text-accent-light">Impian Anda</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
+              Jelajahi kampus terbaik dengan program college tour terintegrasi dan panduan profesional
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 h-auto font-semibold"
+                asChild
+              >
+                <Link to="/paket-tour">
+                  Lihat Semua Program
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-6 h-auto font-semibold"
+                onClick={() => handleWhatsAppClick("konsultasi college tour")}
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Konsultasi Gratis
+              </Button>
             </div>
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
+      </section>
 
-            <Button 
-              size="lg" 
-              className="btn-premium px-8 py-3 text-lg font-semibold"
-              asChild
-            >
-              <Link to="/paket-tour/flash-sale">{t('flashSale')}</Link>
-            </Button>
+      {/* College Tour Types */}
+      <section className="py-20 bg-background">
+        <div className="container px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Pilih Program College Tour
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Tiga jenis program yang dirancang sesuai kebutuhan eksplorasi kampus Anda
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {collegeTourTypes.map((type) => (
+              <Link key={type.id} to={type.link}>
+                <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group h-full border-2 hover:border-primary">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={type.image} 
+                      alt={type.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 text-white">
+                      {type.icon}
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-2xl font-bold text-foreground mb-3">{type.title}</h3>
+                    <p className="text-muted-foreground mb-4">{type.description}</p>
+                    <div className="space-y-2 mb-4">
+                      {type.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center text-sm text-muted-foreground">
+                          <CheckCircle className="h-4 w-4 text-success mr-2" />
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-bold text-primary">{type.price}</span>
+                      <ArrowRight className="h-5 w-5 text-primary group-hover:translate-x-2 transition-transform" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Popular Packages */}
-      <section className="py-16 bg-background">
+      {/* Featured Packages - 4 Grid */}
+      <section className="py-20 bg-secondary/30">
         <div className="container px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Paket Terpopuler
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Program Terpopuler
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Destinasi favorit yang paling banyak dipilih traveler Indonesia
+              College tour pilihan terbaik yang paling banyak diminati siswa
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {popularPackages.map((pkg) => (
-              <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group cursor-pointer">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredPackages.map((pkg) => (
+              <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group">
                 <div className="relative overflow-hidden">
                   <img 
                     src={pkg.image} 
                     alt={pkg.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <Badge className="absolute top-4 right-4 bg-destructive text-destructive-foreground">
-                    PROMO
+                  <Badge className="absolute top-3 right-3 bg-orange-500 text-white text-xs">
+                    {pkg.seats}
                   </Badge>
                 </div>
-                <CardContent className="p-6">
+                
+                <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center space-x-1">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span className="text-sm font-medium">{pkg.rating}</span>
-                      <span className="text-sm text-muted-foreground">({pkg.reviews} ulasan)</span>
+                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                      <span className="text-xs font-medium">{pkg.rating}</span>
+                      <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
                     </div>
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-foreground mb-2">{pkg.title}</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">
+                    {pkg.title}
+                  </h3>
                   
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
+                  <div className="space-y-1 text-xs text-muted-foreground mb-3">
                     <div className="flex items-center space-x-1">
-                      <MapPin className="h-4 w-4" />
-                      <span>{pkg.location}</span>
+                      <MapPin className="h-3 w-3" />
+                      <span className="line-clamp-1">{pkg.location}</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <Calendar className="h-4 w-4" />
+                      <Calendar className="h-3 w-3" />
                       <span>{pkg.duration}</span>
                     </div>
                   </div>
 
-                  <div className="mb-4">
+                  <div className="mb-3">
                     <div className="flex flex-wrap gap-1">
-                      {pkg.highlights.slice(0, 3).map((highlight, idx) => (
-                        <Badge key={idx} variant="secondary" className="text-xs">
-                          {highlight}
+                      {pkg.universities.map((uni, idx) => (
+                        <Badge key={idx} variant="outline" className="text-xs px-1 py-0">
+                          {uni}
                         </Badge>
                       ))}
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-sm text-muted-foreground line-through">{pkg.originalPrice}</span>
-                      <div className="text-2xl font-bold text-primary">{pkg.price}</div>
-                    </div>
+                    <div className="text-base font-bold text-primary">{pkg.price}</div>
                     <Button 
-                      className="bg-success hover:bg-success/90 text-success-foreground"
+                      size="sm"
+                      className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
                       onClick={() => handleWhatsAppClick(pkg.title)}
                     >
-                      <MessageCircle className="h-4 w-4 mr-2" />
-                      Pesan
+                      <MessageCircle className="h-3 w-3 mr-1" />
+                      Book
                     </Button>
                   </div>
                 </CardContent>
@@ -224,7 +297,7 @@ const Beranda = () => {
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" asChild>
               <Link to="/paket-tour">
-                Lihat Semua Paket
+                Lihat Semua Program
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -232,69 +305,87 @@ const Beranda = () => {
         </div>
       </section>
 
-      {/* Customer Trust Section */}
-      <section className="py-16 bg-secondary">
+      {/* Why Choose Us */}
+      <section className="py-20 bg-background">
         <div className="container px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Dipercaya 10,000+ Traveler
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Mengapa Pilih JayaTour?
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Testimonial nyata dari pelanggan yang telah merasakan pengalaman tak terlupakan bersama kami
+              Pengalaman terbaik untuk membantu Anda menemukan universitas impian
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="p-6 text-center">
-                <div className="flex justify-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {whyChooseUs.map((item, idx) => (
+              <Card key={idx} className="text-center p-6 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                  {item.icon}
                 </div>
-                <p className="text-muted-foreground mb-4 italic">"{testimonial.text}"</p>
-                <div className="flex items-center justify-center space-x-3">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div>
-                    <div className="font-semibold text-foreground">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.location}</div>
-                  </div>
-                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Stats */}
+      {/* Stats Section */}
+      <section className="py-16 bg-gradient-to-br from-primary to-accent text-white">
+        <div className="container px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">10,000+</div>
-              <div className="text-muted-foreground">Happy Customers</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">10,000+</div>
+              <div className="text-white/80">Students Joined</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">500+</div>
-              <div className="text-muted-foreground">Destinasi</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">50+</div>
+              <div className="text-white/80">Universities</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">9 Tahun</div>
-              <div className="text-muted-foreground">Pengalaman</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">8 Years</div>
+              <div className="text-white/80">Experience</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">4.9/5</div>
-              <div className="text-muted-foreground">Rating</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">4.9/5</div>
+              <div className="text-white/80">Rating</div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="text-center mt-12">
-            <Button size="lg" asChild>
-              <Link to="/pengalaman/testimoni">
-                Lihat Semua Testimoni
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+      {/* CTA Section */}
+      <section className="py-20 bg-secondary">
+        <div className="container px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Siap Memulai Perjalanan ke Universitas Impian?
+            </h2>
+            <p className="text-muted-foreground text-lg mb-8">
+              Konsultasi gratis dengan tim kami untuk menemukan program college tour yang tepat untuk Anda
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 h-auto font-semibold"
+                onClick={() => handleWhatsAppClick("konsultasi college tour")}
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Chat via WhatsApp
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="text-lg px-8 py-6 h-auto font-semibold"
+                asChild
+              >
+                <Link to="/tentang/cara-booking">
+                  Panduan Booking
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

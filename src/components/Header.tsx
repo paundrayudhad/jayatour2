@@ -18,12 +18,10 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const paketTourItems = [
-    { label: t('allPackages'), href: "/paket-tour" },
-    { label: t('bundlingDeals'), href: "/paket-tour/bundling" },
-    { label: t('international'), href: "/paket-tour/internasional" },
-    { label: t('specialPromo'), href: "/paket-tour/promo" },
-    { label: t('flashSale'), href: "/paket-tour/flash-sale" },
-    { label: t('popularDestinations'), href: "/paket-tour/destinasi" },
+    { label: "College Tour", href: "/paket-tour" },
+    { label: "Internasional", href: "/paket-tour/internasional" },
+    { label: "Bundling Paket", href: "/paket-tour/bundling" },
+    { label: "Flash Sale", href: "/paket-tour/flash-sale" },
   ];
 
   const pengalamanItems = [
