@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { MessageCircle, MapPin, Calendar, Users, Star, Plane } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -208,74 +209,79 @@ const PaketInternasional = () => {
         {/* Packages Grid - 4 columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {internationalPackages.map((pkg) => (
-            <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group">
-              <div className="relative overflow-hidden">
-                <img 
-                  src={pkg.image} 
-                  alt={pkg.title}
-                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {pkg.originalPrice && (
-                  <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground text-xs">
-                    Promo
-                  </Badge>
-                )}
-              </div>
-              
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-1">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                    <span className="text-xs font-medium">{pkg.rating}</span>
-                    <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
-                  </div>
+            <Link key={pkg.id} to={`/paket-tour/internasional/${pkg.id}`}>
+              <Card className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group h-full">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={pkg.image} 
+                    alt={pkg.title}
+                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {pkg.originalPrice && (
+                    <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground text-xs">
+                      Promo
+                    </Badge>
+                  )}
                 </div>
                 
-                <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">{pkg.title}</h3>
-                
-                <div className="space-y-1 text-xs text-muted-foreground mb-3">
-                  <div className="flex items-center space-x-1">
-                    <MapPin className="h-3 w-3" />
-                    <span className="line-clamp-1">{pkg.location}</span>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center space-x-1">
+                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                      <span className="text-xs font-medium">{pkg.rating}</span>
+                      <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="h-3 w-3" />
-                    <span>{pkg.duration}</span>
+                  
+                  <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">{pkg.title}</h3>
+                  
+                  <div className="space-y-1 text-xs text-muted-foreground mb-3">
+                    <div className="flex items-center space-x-1">
+                      <MapPin className="h-3 w-3" />
+                      <span className="line-clamp-1">{pkg.location}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="h-3 w-3" />
+                      <span>{pkg.duration}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Users className="h-3 w-3" />
+                      <span>{pkg.participants}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Users className="h-3 w-3" />
-                    <span>{pkg.participants}</span>
-                  </div>
-                </div>
 
-                <div className="mb-3">
-                  <div className="flex flex-wrap gap-1">
-                    {pkg.highlights.slice(0, 2).map((highlight, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs px-1 py-0">
-                        {highlight}
-                      </Badge>
-                    ))}
+                  <div className="mb-3">
+                    <div className="flex flex-wrap gap-1">
+                      {pkg.highlights.slice(0, 2).map((highlight, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs px-1 py-0">
+                          {highlight}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-center justify-between">
-                  <div>
-                    {pkg.originalPrice && (
-                      <span className="text-xs text-muted-foreground line-through">{pkg.originalPrice}</span>
-                    )}
-                    <div className="text-base font-bold text-primary">{pkg.price}</div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      {pkg.originalPrice && (
+                        <span className="text-xs text-muted-foreground line-through">{pkg.originalPrice}</span>
+                      )}
+                      <div className="text-base font-bold text-primary">{pkg.price}</div>
+                    </div>
+                    <Button 
+                      size="sm"
+                      className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleWhatsAppClick(pkg.title);
+                      }}
+                    >
+                      <MessageCircle className="h-3 w-3 mr-1" />
+                      Book
+                    </Button>
                   </div>
-                  <Button 
-                    size="sm"
-                    className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
-                    onClick={() => handleWhatsAppClick(pkg.title)}
-                  >
-                    <MessageCircle className="h-3 w-3 mr-1" />
-                    Book
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 

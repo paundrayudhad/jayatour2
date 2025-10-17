@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Search, Filter, MapPin, Calendar, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -228,50 +229,52 @@ const Galeri = () => {
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredItems.map((item) => (
-            <Card key={item.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group cursor-pointer">
-              <div className="relative overflow-hidden">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-                <Badge className={`absolute top-4 left-4 ${
-                  item.category === 'domestik' 
-                    ? 'bg-success text-success-foreground' 
-                    : 'bg-accent text-accent-foreground'
-                }`}>
-                  {item.category === 'domestik' ? 'Domestik' : 'Internasional'}
-                </Badge>
-                <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur rounded-full px-3 py-1 flex items-center space-x-1">
-                  <Eye className="h-3 w-3 text-white" />
-                  <span className="text-xs text-white">{item.views}</span>
+            <Link key={item.id} to={`/pengalaman/galeri/${item.id}`}>
+              <Card className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group cursor-pointer h-full">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                  <Badge className={`absolute top-4 left-4 ${
+                    item.category === 'domestik' 
+                      ? 'bg-success text-success-foreground' 
+                      : 'bg-accent text-accent-foreground'
+                  }`}>
+                    {item.category === 'domestik' ? 'Domestik' : 'Internasional'}
+                  </Badge>
+                  <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur rounded-full px-3 py-1 flex items-center space-x-1">
+                    <Eye className="h-3 w-3 text-white" />
+                    <span className="text-xs text-white">{item.views}</span>
+                  </div>
                 </div>
-              </div>
-              
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-foreground mb-2 line-clamp-1">{item.title}</h3>
                 
-                <div className="space-y-2 text-sm text-muted-foreground mb-3">
-                  <div className="flex items-center space-x-1">
-                    <MapPin className="h-3 w-3" />
-                    <span className="line-clamp-1">{item.location}</span>
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-foreground mb-2 line-clamp-1">{item.title}</h3>
+                  
+                  <div className="space-y-2 text-sm text-muted-foreground mb-3">
+                    <div className="flex items-center space-x-1">
+                      <MapPin className="h-3 w-3" />
+                      <span className="line-clamp-1">{item.location}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="h-3 w-3" />
+                      <span>{item.date}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="h-3 w-3" />
-                    <span>{item.date}</span>
-                  </div>
-                </div>
 
-                <p className="text-xs text-muted-foreground line-clamp-2 mb-3">
-                  {item.description}
-                </p>
+                  <p className="text-xs text-muted-foreground line-clamp-2 mb-3">
+                    {item.description}
+                  </p>
 
-                <Button variant="outline" size="sm" className="w-full">
-                  Lihat Detail
-                </Button>
-              </CardContent>
-            </Card>
+                  <Button variant="outline" size="sm" className="w-full">
+                    Lihat Detail
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 

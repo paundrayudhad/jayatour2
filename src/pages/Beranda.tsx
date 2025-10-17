@@ -232,65 +232,101 @@ const Beranda = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredPackages.map((pkg) => (
-              <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={pkg.image} 
-                    alt={pkg.title}
-                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <Badge className="absolute top-3 right-3 bg-orange-500 text-white text-xs">
-                    {pkg.seats}
-                  </Badge>
-                </div>
-                
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-1">
-                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                      <span className="text-xs font-medium">{pkg.rating}</span>
-                      <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
+              <Link key={pkg.id} to={`/paket-tour/${pkg.id}`}>
+                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border-0 bg-gradient-to-br from-card via-card to-secondary/20 h-full">
+                  <div className="relative overflow-hidden h-52">
+                    <img 
+                      src={pkg.image} 
+                      alt={pkg.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                    
+                    {/* Floating badges */}
+                    <Badge className="absolute top-4 left-4 bg-white/95 text-primary border-0 shadow-lg backdrop-blur-sm">
+                      <GraduationCap className="h-3 w-3 mr-1" />
+                      {pkg.universities[0]}
+                    </Badge>
+                    
+                    <Badge className="absolute top-4 right-4 bg-orange-500/95 text-white border-0 shadow-lg backdrop-blur-sm">
+                      {pkg.seats}
+                    </Badge>
+
+                    {/* Bottom info overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <div className="flex items-center space-x-1 bg-white/20 backdrop-blur-md rounded-full px-2 py-1">
+                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                          <span className="text-xs font-semibold">{pkg.rating}</span>
+                        </div>
+                        <span className="text-xs opacity-90">({pkg.reviews} reviews)</span>
+                      </div>
                     </div>
                   </div>
                   
-                  <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">
-                    {pkg.title}
-                  </h3>
-                  
-                  <div className="space-y-1 text-xs text-muted-foreground mb-3">
-                    <div className="flex items-center space-x-1">
-                      <MapPin className="h-3 w-3" />
-                      <span className="line-clamp-1">{pkg.location}</span>
+                  <CardContent className="p-5 space-y-4">
+                    <div>
+                      <h3 className="text-base font-bold text-foreground mb-3 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
+                        {pkg.title}
+                      </h3>
+                      
+                      <div className="space-y-2 text-xs text-muted-foreground mb-4">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                            <MapPin className="h-4 w-4 text-primary" />
+                          </div>
+                          <span className="line-clamp-1 flex-1">{pkg.location}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                            <Calendar className="h-4 w-4 text-accent" />
+                          </div>
+                          <span>{pkg.duration}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center">
+                            <Users className="h-4 w-4 text-success" />
+                          </div>
+                          <span>{pkg.participants}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="h-3 w-3" />
-                      <span>{pkg.duration}</span>
-                    </div>
-                  </div>
 
-                  <div className="mb-3">
-                    <div className="flex flex-wrap gap-1">
-                      {pkg.universities.map((uni, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs px-1 py-0">
-                          {uni}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+                    <div className="border-t pt-4">
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {pkg.universities.slice(0, 3).map((uni, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs border-primary/20">
+                            {uni}
+                          </Badge>
+                        ))}
+                        {pkg.universities.length > 3 && (
+                          <Badge variant="outline" className="text-xs border-primary/20">
+                            +{pkg.universities.length - 3}
+                          </Badge>
+                        )}
+                      </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="text-base font-bold text-primary">{pkg.price}</div>
-                    <Button 
-                      size="sm"
-                      className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
-                      onClick={() => handleWhatsAppClick(pkg.title)}
-                    >
-                      <MessageCircle className="h-3 w-3 mr-1" />
-                      Book
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="text-xs text-muted-foreground mb-1">Mulai dari</div>
+                          <div className="text-xl font-bold text-primary">{pkg.price}</div>
+                        </div>
+                        <Button 
+                          size="sm"
+                          className="bg-gradient-to-r from-success to-success/80 hover:from-success/90 hover:to-success/70 text-white shadow-lg group-hover:shadow-xl transition-all"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleWhatsAppClick(pkg.title);
+                          }}
+                        >
+                          <MessageCircle className="h-3 w-3 mr-1" />
+                          Book
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
 
