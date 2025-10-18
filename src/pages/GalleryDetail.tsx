@@ -35,8 +35,8 @@ const GalleryDetail = () => {
       tags: ["Sunset", "Beach", "Bali", "Travel", "Photography"],
       relatedImages: [
         { id: 2, image: templeImage, title: "Borobudur Sunrise" },
-        { id: 9, image: heroImage, title: "Tanah Lot Temple" },
-        { id: 11, image: templeImage, title: "Ubud Rice Terraces" }
+        { id: 3, image: japanImage, title: "Mount Fuji" },
+        { id: 4, image: singaporeImage, title: "Marina Bay" }
       ]
     },
     2: {
@@ -58,7 +58,54 @@ const GalleryDetail = () => {
       tags: ["Sunrise", "Temple", "Yogyakarta", "Culture", "Heritage"],
       relatedImages: [
         { id: 1, image: heroImage, title: "Sunset di Pantai Kuta" },
-        { id: 7, image: templeImage, title: "Prambanan Temple" }
+        { id: 3, image: japanImage, title: "Mount Fuji" },
+        { id: 5, image: heroImage, title: "Tanah Lot" }
+      ]
+    },
+    3: {
+      id: 3,
+      title: "Mount Fuji Experience",
+      image: japanImage,
+      category: "internasional",
+      location: "Fuji, Japan",
+      date: "April 2024",
+      views: 2345,
+      likes: 145,
+      photographer: "Sakura Tanaka",
+      description: "Pengalaman mendaki gunung ikonik Jepang dengan pemandangan yang menakjubkan.",
+      fullDescription: `Mount Fuji adalah simbol Jepang yang paling ikonik. Dengan ketinggian 3,776 meter, gunung berapi aktif ini menawarkan pengalaman mendaki yang tak terlupakan.
+
+      Pendakian dimulai dari Stasiun ke-5 pada tengah malam untuk mengejar sunrise di puncak. Perjalanan memakan waktu 5-7 jam dengan berbagai tantangan fisik dan mental. Namun semua terbayar ketika melihat matahari terbit dari puncak tertinggi Jepang.
+
+      Yang membuat Mount Fuji istimewa adalah kombinasi antara keindahan alam, signifikansi spiritual, dan tantangan fisik. Setiap tahun ribuan pendaki dari seluruh dunia datang untuk merasakan pengalaman ini.`,
+      tags: ["Mountain", "Hiking", "Japan", "Adventure", "Nature"],
+      relatedImages: [
+        { id: 1, image: heroImage, title: "Sunset di Pantai Kuta" },
+        { id: 2, image: templeImage, title: "Borobudur Sunrise" },
+        { id: 4, image: singaporeImage, title: "Marina Bay" }
+      ]
+    },
+    4: {
+      id: 4,
+      title: "Marina Bay Sands Night View",
+      image: singaporeImage,
+      category: "internasional",
+      location: "Singapore",
+      date: "Mei 2024",
+      views: 1876,
+      likes: 112,
+      photographer: "Michael Wong",
+      description: "Pemandangan malam Singapore dari Marina Bay dengan skyline yang menakjubkan.",
+      fullDescription: `Marina Bay adalah jantung Singapore modern. Dengan gedung-gedung pencakar langit, jembatan helix, dan Gardens by the Bay, area ini menawarkan pemandangan urban terbaik di Asia Tenggara.
+
+      Malam hari adalah waktu terbaik untuk menikmati Marina Bay. Light show dari Gardens by the Bay, lampu-lampu gedung yang berkilauan, dan refleksi di permukaan air menciptakan suasana futuristik yang memukau.
+
+      Singapore adalah contoh sempurna bagaimana kota modern bisa berpadu harmonis dengan ruang hijau dan desain yang inovatif. Marina Bay adalah epicenter dari visi ini.`,
+      tags: ["Cityscape", "Night", "Singapore", "Urban", "Modern"],
+      relatedImages: [
+        { id: 1, image: heroImage, title: "Sunset di Pantai Kuta" },
+        { id: 2, image: templeImage, title: "Borobudur Sunrise" },
+        { id: 3, image: japanImage, title: "Mount Fuji" }
       ]
     }
   };

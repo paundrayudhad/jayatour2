@@ -26,7 +26,6 @@ const Header = () => {
 
   const pengalamanItems = [
     { label: t('gallery'), href: "/pengalaman/galeri" },
-    { label: t('testimonials'), href: "/pengalaman/testimoni" },
     { label: t('blog'), href: "/pengalaman/blog" },
   ];
 

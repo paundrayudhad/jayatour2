@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { MessageCircle, MapPin, Calendar, Users, Star, Clock, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -220,89 +221,110 @@ const FlashSale = () => {
           </div>
         </div>
 
-        {/* Flash Sale Packages - 4 Grid */}
+        {/* Flash Sale Packages - 4 Grid Modern */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {flashSalePackages.map((pkg) => (
-            <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group relative">
-              {/* Flash Sale Badge */}
-              <div className="absolute top-3 left-3 z-10">
-                <Badge className="bg-destructive text-destructive-foreground font-bold text-xs">
-                  -{pkg.discount}
-                </Badge>
-              </div>
-              
-              {/* Stock Badge */}
-              <div className="absolute top-3 right-3 z-10">
-                <Badge variant="outline" className="bg-background/90 text-foreground text-xs">
-                  {pkg.total - pkg.sold} left
-                </Badge>
-              </div>
+            <Link key={pkg.id} to={`/paket-tour/flash-sale/${pkg.id}`} className="block">
+              <Card className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group relative h-full">
+                {/* Flash Sale Badge */}
+                <div className="absolute top-3 left-3 z-10">
+                  <Badge className="bg-gradient-to-r from-destructive to-orange-600 text-white font-bold text-xs shadow-lg animate-pulse">
+                    <Zap className="h-3 w-3 mr-1" />
+                    -{pkg.discount}
+                  </Badge>
+                </div>
+                
+                {/* Stock Badge */}
+                <div className="absolute top-3 right-3 z-10">
+                  <Badge variant="outline" className="bg-background/95 backdrop-blur text-foreground text-xs font-bold border-2">
+                    {pkg.total - pkg.sold} left
+                  </Badge>
+                </div>
 
-              <div className="relative overflow-hidden">
-                <img 
-                  src={pkg.image} 
-                  alt={pkg.title}
-                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              </div>
-              
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-1">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                    <span className="text-xs font-medium">{pkg.rating}</span>
-                    <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={pkg.image} 
+                    alt={pkg.title}
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                    <div className="flex items-center space-x-1">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm font-bold">{pkg.rating}</span>
+                      <span className="text-xs opacity-90">({pkg.reviews})</span>
+                    </div>
+                    <Badge className="bg-white/20 backdrop-blur text-white border-0 text-xs">
+                      {pkg.duration}
+                    </Badge>
                   </div>
                 </div>
                 
-                <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">{pkg.title}</h3>
-                
-                <div className="space-y-1 text-xs text-muted-foreground mb-3">
-                  <div className="flex items-center space-x-1">
-                    <MapPin className="h-3 w-3" />
-                    <span className="line-clamp-1">{pkg.location}</span>
+                <CardContent className="p-5">
+                  <h3 className="text-base font-bold text-foreground mb-3 line-clamp-2 leading-tight min-h-[3rem]">
+                    {pkg.title}
+                  </h3>
+                  
+                  <div className="space-y-2 text-xs text-muted-foreground mb-4">
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="h-3.5 w-3.5" />
+                      <span className="line-clamp-1">{pkg.location}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="h-3.5 w-3.5" />
+                      <span>{pkg.duration}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="h-3 w-3" />
-                    <span>{pkg.duration}</span>
-                  </div>
-                </div>
 
-                {/* Stock Progress */}
-                <div className="mb-3">
-                  <Progress value={(pkg.sold / pkg.total) * 100} className="h-1.5 mb-1" />
-                  <p className="text-xs text-destructive font-medium">
-                    {pkg.sold > pkg.total * 0.8 ? "⚠️ Almost sold out!" : `${pkg.total - pkg.sold} left`}
-                  </p>
-                </div>
-
-                <div className="mb-3">
-                  <div className="flex flex-wrap gap-1">
-                    {pkg.highlights.slice(0, 2).map((highlight, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs px-1 py-0">
-                        {highlight}
-                      </Badge>
-                    ))}
+                  {/* Stock Progress */}
+                  <div className="mb-4">
+                    <Progress value={(pkg.sold / pkg.total) * 100} className="h-2 mb-2" />
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs text-destructive font-bold">
+                        {pkg.sold > pkg.total * 0.8 ? "⚠️ Hampir habis!" : `${pkg.total - pkg.sold} tersisa`}
+                      </p>
+                      <span className="text-xs text-muted-foreground">{pkg.sold} terjual</span>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-center justify-between pt-3 border-t">
-                  <div>
-                    <span className="text-xs text-muted-foreground line-through">{pkg.originalPrice}</span>
-                    <div className="text-base font-bold text-destructive">{pkg.price}</div>
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-1.5">
+                      {pkg.highlights.slice(0, 3).map((highlight, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs px-2 py-0.5">
+                          {highlight}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                  <Button 
-                    size="sm"
-                    className="bg-success hover:bg-success/90 text-success-foreground text-xs px-2 py-1"
-                    onClick={() => handleWhatsAppClick(pkg.title)}
-                  >
-                    <MessageCircle className="h-3 w-3 mr-1" />
-                    Book
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+
+                  <div className="pt-4 border-t space-y-3">
+                    <div className="flex items-baseline justify-between">
+                      <div>
+                        <span className="text-xs text-muted-foreground line-through block mb-0.5">{pkg.originalPrice}</span>
+                        <div className="text-lg font-bold text-destructive">{pkg.price}</div>
+                      </div>
+                      <div className="text-right">
+                        <Badge variant="outline" className="text-success border-success text-xs font-bold">
+                          Hemat {pkg.discount}
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    <Button 
+                      size="sm"
+                      className="w-full bg-gradient-to-r from-success to-success/80 hover:from-success/90 hover:to-success/70 text-success-foreground text-xs font-semibold shadow-md"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleWhatsAppClick(pkg.title);
+                      }}
+                    >
+                      <MessageCircle className="h-3.5 w-3.5 mr-1.5" />
+                      Lihat Detail & Book
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 

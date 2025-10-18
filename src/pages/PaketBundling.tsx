@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Star, MapPin, Users, MessageCircle, ArrowRight, Check, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -263,85 +264,91 @@ const PaketBundling = () => {
               {/* 4 Grid Layout */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {packages.map((pkg) => (
-                  <Card key={pkg.id} className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group">
-                    <div className="relative overflow-hidden">
-                      <img 
-                        src={pkg.image} 
-                        alt={pkg.title}
-                        className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-semibold">
-                        {pkg.badge}
-                      </Badge>
-                      <Badge className="absolute top-3 right-3 bg-orange-500 text-white text-xs">
-                        {pkg.duration}
-                      </Badge>
-                    </div>
-                    
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center space-x-1">
-                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                          <span className="text-xs font-medium">{pkg.rating}</span>
-                          <span className="text-xs text-muted-foreground">({pkg.reviews})</span>
+                  <Link key={pkg.id} to={`/paket-tour/bundling/${pkg.id}`} className="block">
+                    <Card className="overflow-hidden shadow-card hover:shadow-travel transition-all duration-300 group h-full">
+                      <div className="relative overflow-hidden">
+                        <img 
+                          src={pkg.image} 
+                          alt={pkg.title}
+                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                        <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold shadow-lg">
+                          {pkg.badge}
+                        </Badge>
+                        <Badge className="absolute top-3 right-3 bg-orange-500 text-white text-xs font-bold shadow-lg">
+                          {pkg.duration}
+                        </Badge>
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <div className="flex items-center space-x-1 text-white">
+                            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                            <span className="text-sm font-bold">{pkg.rating}</span>
+                            <span className="text-xs opacity-90">({pkg.reviews})</span>
+                          </div>
                         </div>
                       </div>
                       
-                      <h3 className="text-sm font-semibold text-foreground mb-2 line-clamp-2 leading-tight">
-                        {pkg.title}
-                      </h3>
-                      
-                      <div className="flex items-center space-x-1 text-xs text-muted-foreground mb-3">
-                        <Users className="h-3 w-3" />
-                        <span>{pkg.participants}</span>
-                      </div>
-
-                      <div className="mb-3">
-                        <div className="flex flex-wrap gap-1">
-                          {pkg.universities.slice(0, 3).map((uni, idx) => (
-                            <Badge key={idx} variant="outline" className="text-xs px-1 py-0">
-                              {uni}
-                            </Badge>
-                          ))}
-                          {pkg.universities.length > 3 && (
-                            <Badge variant="outline" className="text-xs px-1 py-0">
-                              +{pkg.universities.length - 3}
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="space-y-1 mb-3">
-                        {pkg.highlights.slice(0, 2).map((highlight, idx) => (
-                          <div key={idx} className="flex items-start space-x-1 text-xs">
-                            <Check className="h-3 w-3 text-success mt-0.5 flex-shrink-0" />
-                            <span className="text-muted-foreground line-clamp-1">{highlight}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="pt-3 border-t">
-                        <div className="flex items-center justify-between mb-2">
-                          <div>
-                            <div className="text-xs text-muted-foreground line-through">{pkg.originalPrice}</div>
-                            <div className="text-base font-bold text-primary">{pkg.price}</div>
-                          </div>
-                          <Badge variant="outline" className="text-success border-success text-xs">
-                            Save {((parseFloat(pkg.originalPrice.replace(/[^0-9]/g, '')) - parseFloat(pkg.price.replace(/[^0-9]/g, ''))) / parseFloat(pkg.originalPrice.replace(/[^0-9]/g, '')) * 100).toFixed(0)}%
-                          </Badge>
-                        </div>
+                      <CardContent className="p-5">
+                        <h3 className="text-base font-bold text-foreground mb-3 line-clamp-2 leading-tight min-h-[3rem]">
+                          {pkg.title}
+                        </h3>
                         
-                        <Button 
-                          size="sm"
-                          className="w-full bg-success hover:bg-success/90 text-success-foreground text-xs"
-                          onClick={() => handleWhatsAppClick(pkg.title)}
-                        >
-                          <MessageCircle className="h-3 w-3 mr-1" />
-                          Book Now
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                        <div className="flex items-center space-x-2 text-xs text-muted-foreground mb-4">
+                          <Users className="h-3.5 w-3.5" />
+                          <span>{pkg.participants}</span>
+                        </div>
+
+                        <div className="mb-4">
+                          <div className="flex flex-wrap gap-1.5">
+                            {pkg.universities.slice(0, 3).map((uni, idx) => (
+                              <Badge key={idx} variant="secondary" className="text-xs px-2 py-0.5">
+                                <GraduationCap className="h-3 w-3 mr-1" />
+                                {uni}
+                              </Badge>
+                            ))}
+                            {pkg.universities.length > 3 && (
+                              <Badge variant="secondary" className="text-xs px-2 py-0.5">
+                                +{pkg.universities.length - 3}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="space-y-2 mb-4">
+                          {pkg.highlights.slice(0, 3).map((highlight, idx) => (
+                            <div key={idx} className="flex items-start space-x-2 text-xs">
+                              <Check className="h-3.5 w-3.5 text-success mt-0.5 flex-shrink-0" />
+                              <span className="text-muted-foreground line-clamp-1">{highlight}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="pt-4 border-t space-y-3">
+                          <div className="flex items-baseline justify-between">
+                            <div>
+                              <div className="text-xs text-muted-foreground line-through mb-0.5">{pkg.originalPrice}</div>
+                              <div className="text-lg font-bold text-primary">{pkg.price}</div>
+                            </div>
+                            <Badge variant="outline" className="text-success border-success text-xs font-bold">
+                              Hemat {((parseFloat(pkg.originalPrice.replace(/[^0-9]/g, '')) - parseFloat(pkg.price.replace(/[^0-9]/g, ''))) / parseFloat(pkg.originalPrice.replace(/[^0-9]/g, '')) * 100).toFixed(0)}%
+                            </Badge>
+                          </div>
+                          
+                          <Button 
+                            size="sm"
+                            className="w-full bg-gradient-to-r from-success to-success/80 hover:from-success/90 hover:to-success/70 text-success-foreground text-xs font-semibold shadow-md"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleWhatsAppClick(pkg.title);
+                            }}
+                          >
+                            <MessageCircle className="h-3.5 w-3.5 mr-1.5" />
+                            Lihat Detail & Book
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </TabsContent>
