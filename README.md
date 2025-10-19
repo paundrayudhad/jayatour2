@@ -1,73 +1,56 @@
-# Welcome to your Lovable project
+# Jayatour Travel Portal (Laravel + Filament)
 
-## Project info
+Implementasi ulang portal Jayatour menggunakan Laravel 11, Filament 3, Blade, dan Tailwind CSS. Aplikasi ini menghadirkan landing page marketing yang identik dengan versi React sebelumnya sekaligus menyediakan panel manajemen konten berbasis Filament untuk mengelola paket tour, bundling, promo flash sale, testimoni, blog, dan FAQ.
 
-**URL**: https://lovable.dev/projects/5f3980c6-b6b3-4199-992d-314197c7f024
+## Fitur Utama
 
-## How can I edit this code?
+- 🎯 **Landing page responsif** dengan Blade + Tailwind yang menampilkan hero, paket unggulan, bundling, flash sale, testimoni, galeri, blog, dan FAQ.
+- 🗂️ **Struktur data relational** (MySQL) untuk paket tour, kategori, highlight, bundling, promo flash sale, testimoni, galeri, dan artikel blog.
+- 🧩 **Seeder komprehensif** agar konten demo langsung tersedia setelah migrasi.
+- 🛠️ **Panel admin Filament** untuk CRUD paket tour lengkap dengan repeater highlight.
+- ⚡ **Integrasi Vite + Tailwind** mengikuti standar Laravel modern.
 
-There are several ways of editing your application.
+## Persyaratan
 
-**Use Lovable**
+- PHP >= 8.2 dengan ekstensi `pdo_mysql`
+- Composer 2
+- Node.js >= 18 & npm
+- MySQL / MariaDB
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5f3980c6-b6b3-4199-992d-314197c7f024) and start prompting.
+## Langkah Instalasi
 
-Changes made via Lovable will be committed automatically to this repo.
+1. **Kloning repo & instal dependency backend**
+   ```bash
+   composer install
+   ```
+2. **Salin environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+3. **Konfigurasi database** pada `.env` lalu jalankan migrasi + seeder
+   ```bash
+   php artisan migrate --seed
+   ```
+4. **Instal dependency front-end & build aset**
+   ```bash
+   npm install
+   npm run dev # atau npm run build untuk produksi
+   ```
+5. **Jalankan server pengembangan**
+   ```bash
+   php artisan serve
+   ```
 
-**Use your preferred IDE**
+## Struktur Penting
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- `app/Models` — Model Eloquent untuk paket, bundling, flash sale, dsb.
+- `database/migrations` & `database/seeders` — Skema dan data awal.
+- `resources/views/pages/home.blade.php` — Blade landing page utama.
+- `app/Filament/Resources/TourResource.php` — Panel admin Filament untuk paket tour.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Catatan
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/5f3980c6-b6b3-4199-992d-314197c7f024) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- Folder `public/images` berisi placeholder; ganti dengan aset asli agar tampilan sama persis.
+- Filament dan dependensi lain akan terinstal setelah menjalankan `composer install`.
+- Format mata uang menggunakan Rupiah (`number_format`) agar konsisten dengan permintaan pengguna.
